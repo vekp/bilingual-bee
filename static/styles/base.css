@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.full-viewport-background {
+    height: 100%;
+    width: 100%;
+    background-image: url('../images/background.jpg');
+    background-size: cover; /* Ensures the image covers the viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
+.blur-box {
+    text-align: center;
+    backdrop-filter: blur(20px);
+    padding: 200px 300px;
+    border-radius: 5rem;
+    border: 3px solid black;
+    
+}
+
+
+.container {
+    display: flex;
+    justify-content: center; /* Horizontally centers the centered-div */
+    align-items: center; /* Vertically centers the centered-div */
+    height: 100%; /* Takes the full height of the body */
+    width: 100%; /* Takes the full width of the body */
+}
+
+.btn-group button{
+    display: block;
+}
+
+.btn-group {
+    justify-content: center;
+    align-items: center;
+}
