@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main_menu',
+    'quiz_creator',
+    'quiz_taker',
 ]
 
 MIDDLEWARE = [

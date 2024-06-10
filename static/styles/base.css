@@ -1,8 +1,20 @@
+/* :root {
+    font-size: 62.5%;
+} */
+
+body {
+    font-size: 1.6rem;
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
+/* 
+h1 {
+    margin-bottom: 50px;
+} */
 
 .full-viewport-background {
     height: 100%;
@@ -14,10 +26,12 @@ html, body {
 }
 
 .blur-box {
+    background-color: rgba(255,255,255,0.4);
     text-align: center;
+    -webkit-backdrop-filter: blur(20px); 
     backdrop-filter: blur(20px);
-    padding: 200px 300px;
-    border-radius: 5rem;
+    padding: 25px 50px;
+    border-radius: 50px;
     border: 3px solid black;
     
 }
@@ -33,9 +47,13 @@ html, body {
 
 .btn-group button{
     display: block;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .btn-group {
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
+
 }
