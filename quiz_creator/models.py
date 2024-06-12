@@ -13,26 +13,15 @@ class Question(models.Model):
     answer_language = models.ForeignKey(Language, related_name='answer_language', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Q: {self.question_text} A: {self.answer_text}"
+        return f"{self.question_text} | {self.answer_text}"
 
 class Quiz(models.Model):
     quiz_name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
+    questions = models.ManyToManyField(Question, blank=True)
 
     def __str__(self):
         return self.quiz_name
 
-class QuizQuestion(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField()  # New order field
-
-    class Meta:
-        unique_together = ('quiz', 'question')
-        ordering = ['order']  # Default ordering by order field
-
-    def __str__(self):
-        return f"{self.quiz} - {self.question} (Order: {self.order})"
 
 class Hint(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
