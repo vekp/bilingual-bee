@@ -20,4 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_menu.urls')),
+    path('', include('quiz_creator.urls')),
+    # TODO: Add this in : path('', include('quiz_taker.urls')),
 ]

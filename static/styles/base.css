@@ -1,59 +1,63 @@
-/* :root {
-    font-size: 62.5%;
-} */
-
 body {
     font-size: 1.6rem;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
-/* 
-h1 {
-    margin-bottom: 50px;
-} */
 
 .full-viewport-background {
     height: 100%;
     width: 100%;
     background-image: url('../images/background.jpg');
-    background-size: cover; /* Ensures the image covers the viewport */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-size: cover;
+    /* Ensures the image covers the viewport */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Prevents the image from repeating */
 }
 
 .blur-box {
-    background-color: rgba(255,255,255,0.4);
     text-align: center;
-    -webkit-backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    padding: 25px 50px;
-    border-radius: 50px;
-    border: 3px solid black;
-    
+
+
 }
 
+.main-menu-blur {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    padding: 25px 50px;
+    border: 3px solid black;}
+
+.full-viewport-blur {
+    background-color: rgba(63, 255, 255, 0.8);
+    height: 100%;
+    width: 100%;
+}
 
 .container {
     display: flex;
-    justify-content: center; /* Horizontally centers the centered-div */
-    align-items: center; /* Vertically centers the centered-div */
-    height: 100%; /* Takes the full height of the body */
-    width: 100%; /* Takes the full width of the body */
-}
-
-.btn-group button{
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.btn-group {
     justify-content: center;
+    /* Horizontally centers the centered-div */
     align-items: center;
-    margin-top: 50px;
+    /* Vertically centers the centered-div */
+    height: 100%;
+    /* Takes the full height of the body */
+    width: 100%;
+    /* Takes the full width of the body */
+}
+
+.btn-group-vertical {
+    margin-top: 30px;
+}
+
+.btn-group-vertical a {
+    margin-bottom: 10px;
 
 }
