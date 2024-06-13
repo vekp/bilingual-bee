@@ -1,0 +1,42 @@
+{% extends 'base_yellow.html' %}
+
+{% block title %}
+  {{ quiz.quiz_name }}
+{% endblock %}
+
+{% block yellow_content %}
+  <h1>{{ quiz.quiz_name }}</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div>
+      <label for="id_quiz_name">Quiz name:</label>
+      {{ quiz.quiz_name }}
+    </div>
+    <div>
+      <label>Questions:</label>
+      <table>
+        <tr>
+          <th>Select</th>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        {% for question in all_questions.all %}
+          <tr>
+            <td><input type="checkbox" value="{{ question.pk }}" name="question"
+              {% if question in quiz.questions.all %}
+                checked="checked"
+              {% endif %}
+              ></td>
+            <td>{{ question.question_text }}</td>
+            <td>{{ question.answer_text }}</td>
+            {% comment %} <label for="{{ question.id_for_label }}">{{ question.choice_label }}</label>
+            {{ question.tag }} {% endcomment %}
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}
