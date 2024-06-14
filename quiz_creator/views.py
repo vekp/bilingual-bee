@@ -45,27 +45,23 @@ def quiz_detail(request, pk):
                 quiz.questions.add(question)
             else:
                 quiz.questions.remove(question)
-        return HttpResponse("Nice")
+        return HttpResponse("Nice") #TODO: Fix this
     
 def question_detail(request, pk):
+    if Question.objects.filter(pk=pk).exists():
+        question = get_object_or_404(Question, pk=pk)
+    else:
+        question = None
+
     if request.method == "GET":
-        if Question.objects.filter(pk=pk).exists():
-            question = get_object_or_404(Question, pk=pk)
-            form = QuestionForm(instance=question)
-        else:
-            form = QuestionForm()
-            question = form.instance
+        form = QuestionForm(instance=question)
         return (render(request,
                     'quiz_creator/question_detail.html',
-                    {'question': question, 'form': form}
+                    {'question': form.instance, 'form': form}
                     ))
     else:
-        if Question.objects.filter(pk=pk).exists():
-            question = get_object_or_404(Question, pk=pk)
-            form = QuestionForm(request.POST, instance=question)
-        else:
-            form = QuestionForm(request.POST)
+        form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
-            return HttpResponse("Done")
+            return HttpResponse("Done") #TODO: Fix me
                 
