@@ -48,16 +48,23 @@ def quiz_detail(request, pk):
         return HttpResponse("Nice")
     
 def question_detail(request, pk):
-    question = get_object_or_404(Question, pk=pk)
     if request.method == "GET":
-        form = QuestionForm
+        if Question.objects.filter(pk=pk).exists():
+            question = get_object_or_404(Question, pk=pk)
+            form = QuestionForm(instance=question)
+        else:
+            form = QuestionForm()
+            question = form.instance
         return (render(request,
                     'quiz_creator/question_detail.html',
                     {'question': question, 'form': form}
                     ))
     else:
-        instance = get_object_or_404(Question, pk=pk)
-        form = QuestionForm(request.POST, instance=instance)
+        if Question.objects.filter(pk=pk).exists():
+            question = get_object_or_404(Question, pk=pk)
+            form = QuestionForm(request.POST, instance=question)
+        else:
+            form = QuestionForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponse("Done")
