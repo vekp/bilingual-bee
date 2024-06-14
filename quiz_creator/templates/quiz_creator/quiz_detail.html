@@ -16,7 +16,7 @@
     </div>
     <div>
       <label>Questions:</label>
-      <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover border">
         <thead>
           <tr>
             <th>Select</th>
@@ -44,5 +44,8 @@
       </table>
     </div>
     <button type="submit">Save</button>
-  </form>
+    </form>
+      <a href="{% url 'question_detail' 0 %}">
+        <button>Add new question</button>
+      </a>
 {% endblock %}

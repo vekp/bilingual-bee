@@ -7,6 +7,5 @@ class HintAdmin(admin.ModelAdmin):
 
 admin.site.register(Question)
 admin.site.register(Quiz)
-# admin.site.register(QuizQuestion)
 admin.site.register(Hint, HintAdmin)
 admin.site.register(Language)

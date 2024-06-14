@@ -2,8 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
-
-# Create your views here.
+from main_menu.views import current_user
 
 
 def quiz_list(request):
@@ -29,6 +28,8 @@ def quiz_list(request):
 
 
 def quiz_detail(request, pk):
+    global current_quiz
+    current_quiz = pk
     all_questions = Question.objects.all()
     quiz = get_object_or_404(Quiz, pk=pk)
     form = QuizDetailForm()
@@ -45,7 +46,8 @@ def quiz_detail(request, pk):
                 quiz.questions.add(question)
             else:
                 quiz.questions.remove(question)
-        return HttpResponse("Nice") #TODO: Fix this
+        return redirect('quizzes')
+        #TODO: Add success message/popup
     
 def question_detail(request, pk):
     if Question.objects.filter(pk=pk).exists():
@@ -63,5 +65,6 @@ def question_detail(request, pk):
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
-            return HttpResponse("Done") #TODO: Fix me
+            return redirect('quiz_detail', current_quiz)
+            #TODO: Add success message/popup
                 
