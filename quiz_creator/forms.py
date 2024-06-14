@@ -21,3 +21,7 @@ class QuizDetailForm(forms.ModelForm):
         if self.instance.pk:
             self.fields['questions'].initial = self.instance.questions.all()        
         
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['question_text', 'question_language', 'answer_text', 'answer_language']

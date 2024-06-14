@@ -46,4 +46,19 @@ def quiz_detail(request, pk):
             else:
                 quiz.questions.remove(question)
         return HttpResponse("Nice")
-        
+    
+def question_detail(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    if request.method == "GET":
+        form = QuestionForm
+        return (render(request,
+                    'quiz_creator/question_detail.html',
+                    {'question': question, 'form': form}
+                    ))
+    else:
+        instance = get_object_or_404(Question, pk=pk)
+        form = QuestionForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Done")
+                
