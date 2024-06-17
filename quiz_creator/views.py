@@ -93,10 +93,10 @@ def hint_detail(request, pk):
     else:
         form = HintForm(request.POST, instance=hint)
         hint = form.save(commit=False)
-        # Add q and order to make valid
+        # Add question and order to make valid obj
         hint.question = get_object_or_404(Question, pk=current_question)
         max_order = Hint.objects.filter(question=current_question).aggregate(Max('order'))['order__max']
-        if hint.order is not None:
+        if hint.order is None:
             hint.order = max_order + 1 if max_order else 1
         
         if form.is_valid():
