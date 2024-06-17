@@ -23,6 +23,7 @@
             <th>Question</th>
             <th>Answer</th>
             <th>Edit</th>
+            <th>Hints</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,7 @@
               <td><a href="{% url 'question_detail' question.pk %}">✎</a></td>
               {% comment %} <label for="{{ question.id_for_label }}">{{ question.choice_label }}</label>
               {{ question.tag }} {% endcomment %}
+              <td><a href="{% url 'hints' question.pk %}">✎</a></td>
             </tr>
           {% endfor %}
         </tbody>

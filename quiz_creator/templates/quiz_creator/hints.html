@@ -1,0 +1,48 @@
+{% extends 'base_yellow.html' %}
+
+{% block title %}
+  {{ question }}
+{% endblock %}
+
+{% block yellow_content %}
+  <h1>{{ question }}</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div>
+      <label>Question: {{ question }}</label>
+      <table class="table table-bordered table-hover border">
+        <thead>
+          <tr>
+            <th>Hint text</th>
+            <th>Language</th>
+            <th>Type</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for hint in hints.all %}
+            <tr>
+              <td>{{ hint.hint_text }}</td>
+              <td>{{ hint.hint_language }}</td>
+              <td>
+                {% if hint.is_audio %}
+                  Audio
+                {% else %}
+                  Text
+                {% endif %}
+              </td>
+              <td>
+                <a href="{% url 'hint_detail' hint.pk %}">✎</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <button type="submit">Save</button>
+    {% comment %} <p>{{ form.as_p }}</p> {% endcomment %}
+  </form>
+  <a href="{% url 'hint_detail' 0 %}"><button>Add new hint</button></a>
+{% endblock %}

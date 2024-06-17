@@ -16,7 +16,7 @@ class Question(models.Model):
         return f"{self.question_text} | {self.answer_text}"
 
 class Quiz(models.Model):
-    quiz_name = models.CharField(max_length=255, unique=True)
+    quiz_name = models.CharField(max_length=50, unique=True)
     questions = models.ManyToManyField(Question, blank=True)
 
     def __str__(self):
@@ -24,8 +24,8 @@ class Quiz(models.Model):
 
 
 class Hint(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    hint_text = models.TextField()
+    question = models.ForeignKey(Question, related_name='hints', on_delete=models.CASCADE)
+    hint_text = models.CharField(max_length=100)
     hint_language = models.ForeignKey(Language, on_delete=models.CASCADE)
     is_audio = models.BooleanField(default=False)
     order = models.PositiveIntegerField()

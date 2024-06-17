@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.db.models import Max
 from .models import *
 from .forms import *
 from main_menu.views import current_user
@@ -50,6 +51,8 @@ def quiz_detail(request, pk):
         #TODO: Add success message/popup
     
 def question_detail(request, pk):
+    global current_question
+    current_question = pk
     if Question.objects.filter(pk=pk).exists():
         question = get_object_or_404(Question, pk=pk)
     else:
@@ -57,14 +60,46 @@ def question_detail(request, pk):
 
     if request.method == "GET":
         form = QuestionForm(instance=question)
-        return (render(request,
+        return render(request,
                     'quiz_creator/question_detail.html',
                     {'question': form.instance, 'form': form}
-                    ))
+                    )
     else:
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
             return redirect('quiz_detail', current_quiz)
             #TODO: Add success message/popup
-                
+
+
+def hints(request, pk):
+    global current_question
+    current_question = pk
+    if request.method == "GET":
+        question = get_object_or_404(Question, pk=pk)
+        hints = question.hints.all()
+        form = HintForm()
+        return render(request, 'quiz_creator/hints.html', {'hints': hints, 'question': question, 'form': form})
+    
+def hint_detail(request, pk):
+    if Hint.objects.filter(pk=pk).exists():
+        hint = get_object_or_404(Hint, pk=pk)
+    else:
+        hint = None
+        
+    if request.method == "GET":
+        form = HintForm(instance=hint)
+        return render(request, 'quiz_creator/hint_detail.html', {'hint': form.instance, 'form': form})
+    else:
+        form = HintForm(request.POST, instance=hint)
+        hint = form.save(commit=False)
+        # Add q and order to make valid
+        hint.question = get_object_or_404(Question, pk=current_question)
+        max_order = Hint.objects.filter(question=current_question).aggregate(Max('order'))['order__max']
+        if hint.order is not None:
+            hint.order = max_order + 1 if max_order else 1
+        
+        if form.is_valid():
+            form.save()
+            return redirect('hints', current_question)
+            #TODO: Add success message/popup

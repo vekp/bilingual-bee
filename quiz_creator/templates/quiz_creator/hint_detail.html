@@ -1,0 +1,18 @@
+{% extends 'base_yellow.html' %}
+
+{% block title %}
+  Hint
+{% endblock %}
+
+{% block yellow_content %}
+  <h1>{{ quiz.quiz_name }}</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    {{ form.as_p }}
+
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

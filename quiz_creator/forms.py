@@ -35,6 +35,9 @@ class QuestionForm(forms.ModelForm):
         
         
 class HintForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['hint_language'].initial = current_user.question_language
     class Meta:
         model = Hint
         fields = ['hint_text', 'hint_language', 'is_audio']
