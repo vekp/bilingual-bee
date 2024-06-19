@@ -7,6 +7,10 @@ from main_menu.views import current_user
 
 
 def quiz_list(request):
+    """
+    Render a list of all existing quizzes in response to GET request,
+    or create a new quiz in response to POST request.
+    """
     # Display list of all quizzes
     if request.method == "GET":
         quizzes = Quiz.objects.all()
@@ -27,8 +31,11 @@ def quiz_list(request):
             return HttpResponse("Invalid input")
             
 
-
 def quiz_detail(request, pk):
+    """
+    GET: Display all existing questions, with  checkboxes to select questions for the quiz.
+    POST: Save all checked questions to current quiz.
+    """
     global current_quiz
     current_quiz = pk
     all_questions = Question.objects.all()
@@ -51,6 +58,10 @@ def quiz_detail(request, pk):
         #TODO: Add success message/popup
     
 def question_detail(request, pk):
+    """
+    GET: Display form with details for a question.
+    POST: Save details after validating.
+    """
     global current_question
     current_question = pk
     if Question.objects.filter(pk=pk).exists():
@@ -73,6 +84,9 @@ def question_detail(request, pk):
 
 
 def hints(request, pk):
+    """
+    Display list of all hints for current question.
+    """
     global current_question
     current_question = pk
     if request.method == "GET":
@@ -80,8 +94,13 @@ def hints(request, pk):
         hints = question.hints.all()
         form = HintForm()
         return render(request, 'quiz_creator/hints.html', {'hints': hints, 'question': question, 'form': form})
+    #TODO: Make hints sortable
     
 def hint_detail(request, pk):
+    """
+    GET: Display form for editing existing hint, or creating new one.
+    POST: Save hint details.
+    """
     if Hint.objects.filter(pk=pk).exists():
         hint = get_object_or_404(Hint, pk=pk)
     else:
@@ -95,8 +114,8 @@ def hint_detail(request, pk):
         hint = form.save(commit=False)
         # Add question and order to make valid obj
         hint.question = get_object_or_404(Question, pk=current_question)
-        max_order = Hint.objects.filter(question=current_question).aggregate(Max('order'))['order__max']
         if hint.order is None:
+            max_order = Hint.objects.filter(question=current_question).aggregate(Max('order'))['order__max']
             hint.order = max_order + 1 if max_order else 1
         
         if form.is_valid():

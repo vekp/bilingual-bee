@@ -10,5 +10,6 @@ Bilingual Bee is an application created as a continuation of a project completed
 
 ## Current status
 Bilingual Bee is a work in progress.
-It is a Python web app, built on the Django framework. It currently uses an SQLite database, but there are plans to migrate to a MySQL database in the future.
+It is a Python web app, built on the Django framework. It currently uses an SQLite database, but I plan to migrate to a PostGres database in the future.
 
+The HTML/CSS frontend will also be supplemented with JavaScript and React in the near future.
