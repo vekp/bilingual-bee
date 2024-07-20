@@ -9,6 +9,8 @@ Bilingual Bee is an application created as a continuation of a project completed
 [3. Working Prototype and Demo](https://youtu.be/M_AgprXpR1g)
 
 ## Current status
+[Working Prototype made with Protopie](https://cloud.protopie.io/p/f3b20c4becacf901c321220e)
+
 Bilingual Bee is a work in progress.
 It is a Python web app, built on the Django framework. It currently uses an SQLite database, but I plan to migrate to a PostGres database in the future.
 
